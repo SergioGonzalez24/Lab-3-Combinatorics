@@ -1,7 +1,7 @@
 
 # ----------------------------------------------------------
-# Lab #1: Steganography
-# Image processing through bit manipulation.
+# Lab #3: Combinatorics
+# Permutations and combinations with repetition.
 #
 # Date: 09-Sep-2022
 # Authors:
@@ -19,7 +19,7 @@ def power_set(s: list[C]) -> list[list[C]]:
         return r + [t + [s[-1]] for t in r]
     else:
         return [[]]
-    
+
 
 def sorted_nicely(s: list[list[C]]) -> list[list[C]]:
 
@@ -32,7 +32,7 @@ def sorted_nicely(s: list[list[C]]) -> list[list[C]]:
 def combinations(s: list[C], n: int) -> list[list[C]]:
     return [t for t in power_set(s) if len(t) == n]
 
-    
+
 def insert(x: C, lst: list[C], i: int) -> list[C]:
     return lst[:i] + [x] + lst[i:]
 
@@ -53,57 +53,88 @@ def permutations(s: list[C], n: int) -> list[list[C]]:
     return sum([permute(t) for t in combinations(s, n)], [])
 
 
-
 def combinations_with_repetition(s: list[C], n: int) -> list[list[C]]:
-    # combined_list = [i for i in s for _ in range(n)]
+    """Returns a list of lists with all the possible combinations with repetition
+
+    Args:
+        s (list[C]): Initial list
+        n (int): the length of each list
+
+    Returns:
+        list[list[C]]: List of lists with all the possible combinations with repetition
+    """
     combined_list = permutations_with_repetition(s, n)
     combined_list = [sorted(item) for item in combined_list]
     return [list(item) for item in set(tuple(row) for row in combined_list)]
-    
-    
-def permutations_with_repetition(s: list[C], n: int) -> list[list[C]]:
-    combined_list = [s for _ in range(n)]
-    
-    possible_list = get_list_possibles(len(s), n)
-    final = []
 
-    # print(len(s) ** n)
-    for i in range(len(s) ** n):
+
+def permutations_with_repetition(s: list[C], n: int) -> list[list[C]]:
+    """Returns a list of lists with all the possible permutations with repetition
+
+    Args:
+        s (list[C]): Initial list
+        n (int): the length of each list
+
+    Returns:
+        list[list[C]]: List of lists with all the possible permutations with repetition
+    """
+    if n == 0:
+        return []
+    if s:
+        combined_list = [s for _ in range(n)]
+        possible_list = get_list_possibles(len(s), n)
+        final = []
+
+        # print(len(s) ** n)
+        for i in range(len(s) ** n):
+            temp = []
+            for j in range(n):
+                temp.append(combined_list[j][possible_list[i][j]])
+            final.append(temp)
+
+        return final
+    else:
+        return []
+
+
+def get_list_possibles(len_s: int, n: int) -> list[list[int]]:
+    """Returns a list of lists with all the possible combinations of numbers
+
+    Args:
+        len_s (int): Length of the initial list
+        n (int): the length of each list
+
+    Returns:
+        list[list[int]]: List of lists with all the possible combinations of numbers
+    """
+    if len_s and n > 0:
+        ceros = [0] * n
+        goal = [len_s - 1] * n
         temp = []
-        for j in range(n):
-            temp.append(combined_list[j][possible_list[i][j]])
-        final.append(temp)
-    
-    return final
-            
-            
-def get_list_possibles(s, n):
-    a = [0] * n
-    d = [s - 1] * n
-    b = []
-    counter = -1
-    while a != d:
-        if a[counter] == s:
-            # print(a)
-            a[counter] = 0
-            for i in range(-2, -(len(a)+1), -1):
-                if a[i] != s - 1:
-                    a[i] += 1
-                    for k in range(i + 1, 0, 1):
-                        a[k] = 0
-                    break   
-        else:
-            c = a.copy()
-            b.append(c)
-            a[counter] += 1
-    
-    c = a.copy()
-    b.append(c)
-    return b
+        counter = -1
+        while ceros != goal:
+            if ceros[counter] == len_s:
+                # print(ceros)
+                ceros[counter] = 0
+                for i in range(-2, -(len(ceros)+1), -1):
+                    if ceros[i] != len_s - 1:
+                        ceros[i] += 1
+                        for k in range(i + 1, 0, 1):
+                            ceros[k] = 0
+                        break
+            else:
+                c = ceros.copy()
+                temp.append(c)
+                ceros[counter] += 1
+
+        c = ceros.copy()
+        temp.append(c)
+        return temp
+    return []
 
 
 if __name__ == '__main__':
     from pprint import pprint
-    
+
     pprint(len(permutations_with_repetition(
-                             range(3), 6)))
+        range(10), 4)))
