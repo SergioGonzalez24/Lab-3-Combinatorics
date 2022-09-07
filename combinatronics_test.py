@@ -1,7 +1,7 @@
 # File: combinatorics_test.py
 
 from unittest import TestCase, main
-from combinatronics import \
+from combinatronics_example import \
     permutations_with_repetition, \
     combinations_with_repetition
 
