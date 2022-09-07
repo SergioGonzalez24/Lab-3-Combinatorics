@@ -61,31 +61,6 @@ def combinations_with_repetition(s: list[C], n: int) -> list[list[C]]:
     return [list(item) for item in set(tuple(row) for row in combined_list)]
     
     
-    """ret = []
-    for k in range(len(s)):
-        temp = []
-        for i in range(n):
-            temp.append(s[k])
-        
-                
-        for i in range(n):
-            for u in range(len(s)):
-                # print("vuelta")
-                # print(f'i {s[u]} u {i}')
-                # print(f'temp antes: {temp}')
-                temp[i] = s[u]
-                temp2 = temp.copy()
-                # print(temp)
-                # print(f'temp cambio: {temp2}\n')
-                temp2.sort()
-                # print(temp2)
-                ret.append(temp2)
-                # print(ret)
-                
-    # pprint(sorted(ret))
-    # print('\n')
-    return [list(item) for item in set(tuple(row) for row in ret)]"""
-    
 def permutations_with_repetition(s: list[C], n: int) -> list[list[C]]:
     combined_list = [s for _ in range(n)]
     
@@ -98,54 +73,10 @@ def permutations_with_repetition(s: list[C], n: int) -> list[list[C]]:
         for j in range(n):
             temp.append(combined_list[j][possible_list[i][j]])
         final.append(temp)
-        
-    """for i in possible_list:
-        temp = []
-        for j in range(n):
-            temp.append(combined_list[j][i])"""
     
     return final
             
-    
-    """potencia = 0
-    for i in range(n):
-        potencia += len(s)**i 
-        
-    combined_list = []
-    for i in range(potencia):
-        combined_list.append([i for i in s])
-        
-    # return(combined_list)
-    print(f"len {len(combined_list)}")
-
-    final_list = []
-    
-    
-    for i in range(int((len(s) ** n) / len(s))):
-        for j in range(len(s)):
-            temp = []
-            for k in range(n):
-                print(combined_list[i+j+k][j])
-                print(f'i {i} j {j} k {k}')
-                print(f'ik {i+k}')
-                temp.append(combined_list[i+k][j])
-                
-            final_list.append(temp)"""
-
-    """for i in range(len(combined_list)):
-        temp = []
-        for j in range(n):
-            print(combined_list[j][i])
-            temp.append(combined_list[j][i])
-        final_list.append(temp)"""
-    
-    # return(final_list)
-    
-    """# print(combinations_with_repetitions(s, n))
-    # print(permute([0,0,0,1]))
-    return [list(item) for item in set(tuple(row) for row in sum([permute(t) for t in combinations_with_repetition(s, n)], []))]"""
-
-# print(permutations_with_repetition([1, 2, 3, 4], 3))
+            
 def get_list_possibles(s, n):
     a = [0] * n
     d = [s - 1] * n
@@ -168,29 +99,11 @@ def get_list_possibles(s, n):
     
     c = a.copy()
     b.append(c)
-    # pprint(b)
     return b
 
 
-# pprint(len(sorted(get_list_possibles(5, 4))))
 if __name__ == '__main__':
     from pprint import pprint
-
-    # pprint(sorted_nicely(power_set([1, 2, 3, 4])))
-    # print()
-    # pprint(sorted_nicely(combinations(['a', 'b', 'c', 'd'], 2)))
-    # print()
-    # pprint(sorted_nicely(combinations([True, False], 1)))
-    # print(insert_many(5, [1, 2, 3, 4]))
-    # pprint(sorted_nicely(permutations([1, 2, 3, 4], 4)))
-    # pprint(sorted(combinations_with_repetitions(['a', 'b', 'c', 'd'], 2)))
-    # pprint(sorted_nicely(combinations(['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'], 3)))
-    # pprint(sorted(
-      #          combinations_with_repetition([1, 2, 3], 4)))
-    # pprint(len(combinations_with_repetition(range(6), 5)))
-    # pprint(len(Cartesian(permutations_with_repetition([1, 2, 3], 2), len(permutations_with_repetition([1, 2, 3], 2)))))
-    # pprint(permutations_with_repetition([1, 2, 3], 3))
-    # pprint(permutations_with_repetition([1, 2, 3, 4], 3))
-    # pprint(permutations([0, 1, 2, 3, 4], 5))
-    pprint(len(combinations_with_repetition(
-                             range(10), 4)))
+    
+    pprint(len(permutations_with_repetition(
+                             range(3), 6)))
